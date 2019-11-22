@@ -13,12 +13,18 @@ const _defaultCosts = [
   }
 ];
 
+const _initialPerson = {
+  firstname: "",
+  age: ""
+};
+
 const CostTable = () => {
   const [costs, setCosts] = useState(_defaultCosts);
-
-  const handleCostsChange = event => {
+  const [person, setPerson] = useState(_initialPerson);
+  const handleCostsChange = (event, index) => {
     const _tempCosts = [...costs];
-    _tempCosts[event.target.dataset.id][event.target.name] = event.target.value;
+    const { name, value} = event.target;
+    _tempCosts[index][name] = value;
 
     setCosts(_tempCosts);
   };
@@ -33,9 +39,22 @@ const CostTable = () => {
     }, 0);
   };
 
+  const handlePersonsChange = (e) => {
+    const { name, value } = e.target;
+    setPerson(prevPerson => {
+     return { ...prevPerson, [name] : value}
+    })
+  }
   return (
+    
     <div className="table">
       <div className="table-title">Food costs</div>
+      <input
+        name="firstname"
+        type="text"
+        value={person.firstname}
+        onChange={handlePersonsChange}
+      />
       <div className="table-content">
         <div className="table-header">
           <div className="table-row">
@@ -56,7 +75,7 @@ const CostTable = () => {
                   data-id={index}
                   type="text"
                   value={item.name}
-                  onChange={handleCostsChange}
+                  onChange={e => handleCostsChange(e, index)}
                 />
               </div>
               <div className="table-data">
@@ -65,7 +84,7 @@ const CostTable = () => {
                   data-id={index}
                   type="number"
                   value={item.price}
-                  onChange={handleCostsChange}
+                  onChange={e => handleCostsChange(e, index)}
                 />
               </div>
             </div>
