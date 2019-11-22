@@ -21,6 +21,14 @@ const _initialPerson = {
 const CostTable = () => {
   const [costs, setCosts] = useState(_defaultCosts);
   const [person, setPerson] = useState(_initialPerson);
+  
+//     const handleCostsChange = event => {
+//     const _tempCosts = [...costs];
+//     _tempCosts[event.target.dataset.id][event.target.name] = event.target.value;
+
+//     setCosts(_tempCosts);
+//   };
+  
   const handleCostsChange = (event, index) => {
     const _tempCosts = [...costs];
     const { name, value} = event.target;
@@ -75,6 +83,7 @@ const CostTable = () => {
                   data-id={index}
                   type="text"
                   value={item.name}
+//                onChange={handleCostsChange}
                   onChange={e => handleCostsChange(e, index)}
                 />
               </div>
@@ -84,6 +93,7 @@ const CostTable = () => {
                   data-id={index}
                   type="number"
                   value={item.price}
+//                onChange={handleCostsChange}
                   onChange={e => handleCostsChange(e, index)}
                 />
               </div>
